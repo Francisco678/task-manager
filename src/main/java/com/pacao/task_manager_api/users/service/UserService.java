@@ -1,6 +1,7 @@
 package com.pacao.task_manager_api.users.service;
 
 import com.pacao.task_manager_api.users.dto.UserResponse;
+import com.pacao.task_manager_api.users.entity.UserEntity;
 import com.pacao.task_manager_api.users.mapper.UserMapper;
 import com.pacao.task_manager_api.users.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,9 @@ public class UserService {
     private final UserRepository respository;
 
     public List<UserResponse> getUsers() {
-        return respository.findAll().stream().map(UserMapper::userEntityToResponse).toList();
+
+        List<UserEntity> userEntities = respository.findAll();
+
+        return userEntities.stream().map(UserMapper::userEntityToResponse).toList();
     }
 }

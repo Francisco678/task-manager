@@ -1,10 +1,10 @@
 package com.pacao.task_manager_api.users.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.pacao.task_manager_api.task.entity.TaskEntity;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -14,4 +14,7 @@ public class UserEntity {
     Integer id;
     String nombre;
     String email;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    List<TaskEntity> tasks;
 }
