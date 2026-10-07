@@ -2,6 +2,7 @@ package com.pacao.task_manager_api.users.mapper;
 
 import com.pacao.task_manager_api.task.dto.TaskResponse;
 import com.pacao.task_manager_api.task.mapper.TaskMapper;
+import com.pacao.task_manager_api.users.dto.UserRequest;
 import com.pacao.task_manager_api.users.dto.UserResponse;
 import com.pacao.task_manager_api.users.entity.UserEntity;
 
@@ -25,6 +26,14 @@ public class UserMapper {
                 .build();
     }
 
+    public static UserEntity userRequestToEntity(UserRequest request) {
+
+        return UserEntity.builder()
+                .id(request.id())
+                .nombre(request.nombre())
+                .email(request.email())
+                .build();
+    }
 }
 
 
