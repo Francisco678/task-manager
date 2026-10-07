@@ -8,10 +8,10 @@ import lombok.Builder;
 
 @Builder
 
-public class TaskResponse {
-    Integer id;
-    String title;
-    String description;
-    String statutus;
-    String createdAt;
+public record TaskResponse( Integer id,
+        String title,
+        String description,
+        String statutus,
+        String createdAt) {
+
 }
