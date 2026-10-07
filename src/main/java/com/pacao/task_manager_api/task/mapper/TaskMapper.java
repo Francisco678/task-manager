@@ -1,6 +1,7 @@
 package com.pacao.task_manager_api.task.mapper;
 import com.pacao.task_manager_api.task.entity.TaskEntity;
 import com.pacao.task_manager_api.task.dto.TaskResponse;
+import com.pacao.task_manager_api.users.mapper.UserMapper;
 
 
 public class TaskMapper {
@@ -13,6 +14,7 @@ public class TaskMapper {
                 .description(entity.getDescription())
                 .statutus(entity.getStatutus())
                 .createdAt(entity.getCreatedAt())
+                .user(UserMapper.userEntityToSummaryResponse(entity.getUser()))
                 .build();
 
     }
