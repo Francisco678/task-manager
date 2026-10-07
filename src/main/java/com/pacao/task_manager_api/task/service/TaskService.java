@@ -23,4 +23,11 @@ public class TaskService {
 
 
     }
+
+    public TaskResponse getTaskById(Integer idTask) {
+
+        TaskEntity entity = repository.findById(idTask).orElseThrow(()->new RuntimeException("Task no econtrada"));
+
+        return TaskMapper.taskEntityToResponse(entity);
+    }
 }
