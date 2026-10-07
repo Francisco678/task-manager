@@ -8,6 +8,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Builder;
 
+import java.time.LocalDate;
+
 @Builder
 
 public record TaskResponse(
@@ -15,7 +17,7 @@ public record TaskResponse(
         String title,
         String description,
         String statutus,
-        String createdAt,
+        LocalDate createdAt,
         UserSummaryResponse user) {
 
 }

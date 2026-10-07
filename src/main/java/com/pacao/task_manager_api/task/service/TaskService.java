@@ -1,5 +1,6 @@
 package com.pacao.task_manager_api.task.service;
 
+import com.pacao.task_manager_api.task.dto.TaskRequest;
 import com.pacao.task_manager_api.task.dto.TaskResponse;
 import com.pacao.task_manager_api.task.entity.TaskEntity;
 import com.pacao.task_manager_api.task.mapper.TaskMapper;
@@ -29,5 +30,13 @@ public class TaskService {
         TaskEntity entity = repository.findById(idTask).orElseThrow(()->new RuntimeException("Task no econtrada"));
 
         return TaskMapper.taskEntityToResponse(entity);
+    }
+
+    public Integer createTask(TaskRequest request) {
+        TaskEntity entity = TaskMapper.taskRequestToEntity(request);
+
+        TaskEntity createdTask= repository.save(entity);
+        return createdTask.getId();
+
     }
 }

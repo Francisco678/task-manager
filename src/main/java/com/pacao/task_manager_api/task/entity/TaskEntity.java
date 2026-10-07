@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "tasks")
 @Data
@@ -15,12 +17,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TaskEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     String title;
     String description;
     String statutus;
     @Column(name = "createdat")
-    String createdAt;
+    LocalDate createdAt;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "userid") //hace referencia al nombre de la columna en la tabla de tasks que funciona fk
