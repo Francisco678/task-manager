@@ -1,6 +1,7 @@
 package com.pacao.task_manager_api.advice;
 
 import com.pacao.task_manager_api.error.ErrorResponse;
+import com.pacao.task_manager_api.exception.TaskException;
 import com.pacao.task_manager_api.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -16,6 +17,12 @@ public class GlobalHandlerException {
 
         ErrorResponse error = new ErrorResponse("User error",exception.getMessage());
 
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(TaskException.class)
+    public ResponseEntity<ErrorResponse> handle(TaskException exception){
+        ErrorResponse error = new ErrorResponse("Task error",exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }

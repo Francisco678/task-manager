@@ -26,9 +26,9 @@ public class UserService {
 
     public UserResponse getUserById(Integer idUser) {
 
-        UserEntity user = respository.findById(idUser).orElseThrow(()->new UserNotFoundException("Usuario con Id: "+idUser+" no encontrado"));
+        return respository.findById(idUser).map(UserMapper::userEntityToResponse).orElseThrow(()->new UserNotFoundException("Usuario con Id: "+idUser+" no encontrado"));
 
-        return UserMapper.userEntityToResponse(user);
+
     }
 
     public Integer createUser(UserRequest request) {
@@ -38,5 +38,10 @@ public class UserService {
         UserEntity createdUser = respository.save(userEntity);
 
         return createdUser.getId();
+    }
+
+
+    public boolean isUserInBd(Integer userId){
+        return respository.existsById(userId);
     }
 }
