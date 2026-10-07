@@ -3,6 +3,7 @@ package com.pacao.task_manager_api.users.controller;
 import com.pacao.task_manager_api.users.dto.UserRequest;
 import com.pacao.task_manager_api.users.dto.UserResponse;
 import com.pacao.task_manager_api.users.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Integer> createUser(@RequestBody UserRequest request){
+    public ResponseEntity<Integer> createUser(@Valid @RequestBody UserRequest request){
         return ResponseEntity.ok(service.createUser(request));
     }
 
