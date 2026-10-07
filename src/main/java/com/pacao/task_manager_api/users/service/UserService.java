@@ -21,4 +21,11 @@ public class UserService {
 
         return userEntities.stream().map(UserMapper::userEntityToResponse).toList();
     }
+
+    public UserResponse getUserById(Integer idUser) {
+
+        UserEntity user = respository.findById(idUser).orElseThrow(()->new RuntimeException("Usuario no econtrado"));
+
+        return UserMapper.userEntityToResponse(user);
+    }
 }

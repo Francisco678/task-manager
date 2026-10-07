@@ -5,6 +5,7 @@ import com.pacao.task_manager_api.users.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,14 @@ public class UserController {
     public ResponseEntity<List<UserResponse>> getUsers(){
 
         return ResponseEntity.ok(service.getUsers());
+    }
+
+
+    @GetMapping("/{idUser}")
+    public ResponseEntity<UserResponse> getUserById(@PathVariable Integer idUser){
+
+        return ResponseEntity.ok(service.getUserById(idUser));
+
     }
 
 }
