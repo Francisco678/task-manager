@@ -1,5 +1,6 @@
 package com.pacao.task_manager_api.users.service;
 
+import com.pacao.task_manager_api.exception.UserNotFoundException;
 import com.pacao.task_manager_api.users.dto.UserRequest;
 import com.pacao.task_manager_api.users.dto.UserResponse;
 import com.pacao.task_manager_api.users.entity.UserEntity;
@@ -25,7 +26,7 @@ public class UserService {
 
     public UserResponse getUserById(Integer idUser) {
 
-        UserEntity user = respository.findById(idUser).orElseThrow(()->new RuntimeException("Usuario no econtrado"));
+        UserEntity user = respository.findById(idUser).orElseThrow(()->new UserNotFoundException("Usuario con Id: "+idUser+" no encontrado"));
 
         return UserMapper.userEntityToResponse(user);
     }
