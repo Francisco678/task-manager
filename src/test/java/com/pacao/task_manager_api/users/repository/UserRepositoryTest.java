@@ -1,5 +1,6 @@
 package com.pacao.task_manager_api.users.repository;
 
+import com.pacao.task_manager_api.task.entity.TaskEntity;
 import com.pacao.task_manager_api.users.entity.UserEntity;
 import org.apache.catalina.User;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -183,6 +185,39 @@ public class UserRepositoryTest {
         //ASSERT
         assertNotNull(savedUser);
         assertEquals("Paco",savedUser.getNombre());
+    }
+
+
+    @Test
+    void shouldReturnUserWithTasks(){
+
+        //ARRANGE
+        UserEntity user = UserEntity.builder()
+                .nombre("Paco")
+                .email("paco@gmail.com")
+                .tasks(new ArrayList<>())
+                .build();
+
+        TaskEntity task = TaskEntity.builder()
+                .title("Comer")
+                .statutus("Pendiente")
+                .createdAt(LocalDate.of(2026,02,22))
+                .description("Solo frutas y verduras")
+                .user(user)
+                .build();
+
+        user.getTasks().add(task);
+
+        repository.saveAndFlush(user);
+
+
+        //ACT
+        List<UserEntity> result = repository.findAll();
+
+
+        //ASSERT
+        assertEquals("Comer",result.get(0).getTasks().get(0).getTitle());
+
     }
 
 
