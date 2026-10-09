@@ -169,4 +169,21 @@ public class UserRepositoryTest {
     }
 
 
+    @Test
+    void shouldSaveUser(){
+        //ARRANGE
+        UserEntity user = UserEntity.builder()
+                .nombre("Paco")
+                .email("paco@gmail.com")
+                .build();
+
+        //ACT
+        UserEntity savedUser = repository.save(user);
+
+        //ASSERT
+        assertNotNull(savedUser);
+        assertEquals("Paco",savedUser.getNombre());
+    }
+
+
 }
