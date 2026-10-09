@@ -39,10 +39,12 @@ entidades y el servicio las convierte en respuestas.
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
-
+    //@Mock: crea un objeto simulado de una dependencia.
     @Mock
     private UserRepository repository;
 
+    /*@InjectMocks: crea una instancia real de la clase que queremos probar e intenta inyectarle
+    los mocks que necesita.*/
     @InjectMocks
     private UserService service;
 
