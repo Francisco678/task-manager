@@ -1,6 +1,7 @@
 package com.pacao.task_manager_api.users.controller;
 
 import com.pacao.task_manager_api.exception.UserNotFoundException;
+import com.pacao.task_manager_api.users.dto.UserRequest;
 import com.pacao.task_manager_api.users.dto.UserResponse;
 import com.pacao.task_manager_api.users.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -9,14 +10,17 @@ import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.Mockito.verify;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import java.util.List;
 
-import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 
 /*@WebMvcTest carga la parte necesaria de Spring MVC para probar el controlador
@@ -150,6 +154,55 @@ public class UserControllerTest {
         verify(service).getUserById(1);
 
 
+    }
+
+    @Test
+    void shouldCreateUserSuccessfully() throws Exception{
+
+        // ARRANGE
+        /*
+        * Le indicamos a Mockito que cuando el controlador invoque createUser() con
+        * cualquier objeto UserRequest, el servicio simulado devolverá 1.
+        * */
+        when(service.createUser(any(UserRequest.class)))
+                .thenReturn(1);
+
+        // ACT & ASSERT
+        mockMvc.perform(post("/api/v1/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                        {
+                            "nombre": "Paco",
+                            "email": "paco@gmail.com"
+                        }
+                        """))
+                .andExpect(status().isOk())
+                .andExpect(content().string("1"));
+
+        verify(service, times(1))
+                .createUser(any(UserRequest.class));
+    }
+
+    @Test
+    void shouldReturnBadRequestWhenUserDataIsInvalid()
+            throws Exception {
+
+        // ARRANGE
+        String invalidUser = """
+            {
+                "nombre": "",
+                "email": "correo-invalido"
+            }
+            """;
+
+        // ACT & ASSERT
+        mockMvc.perform(post("/api/v1/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(invalidUser))
+
+                .andExpect(status().isBadRequest());
+
+        verify(service, never()).createUser(any(UserRequest.class));
     }
 
 
