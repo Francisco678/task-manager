@@ -25,16 +25,16 @@ import static org.mockito.Mockito.*;
 *
 Esta clase realiza pruebas unitarias porque estamos aislámos el service de su dependencia externa, el repositorio.
 
-¿Cómo sería una prueba de integración?
-En una prueba de integración podríamos utilizar:
--Un UserService real.
--Un UserRepository real.
--Una base de datos de prueba, por ejemplo PostgreSQL con Testcontainers.
 
-Así comprobaríamos que Spring Data JPA consulta correctamente la base de datos, recupera las
-entidades y el servicio las convierte en respuestas.
+@ExtendWith no inicia un contexto de Spring.
+Activa Mockito, y este se encarga de preparar los objetos.
+No significa que Mockito administre los objetos de la misma manera que Spring administra sus beans.
+Mockito simplemente se encarga de crear los mocks y realizar la inyección correspondiente mediante
+@InjectMocks.
 
-* En esta clase se uso JUnit 5 + Mockito
+
+Por ello es que se usa @Mock para las dependencia, ya que no requerimos que
+sean objetos administrados por Spring como beans
 * */
 
 @ExtendWith(MockitoExtension.class)

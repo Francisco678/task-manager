@@ -26,15 +26,15 @@ Esta clase realiza una prueba de integración, no una prueba unitaria.
 La diferencia principal es que ahora vamos a utilizar un repositorio real y
 una base de datos PostgreSQL real, pero temporal, creada con Docker mediante
 Testcontainers.
-
-En esta clase se valida que UserRepository realmente pueda:
--Guardar un usuario en PostgreSQL.
--Consultar los usuarios almacenados.
--Recuperar correctamente sus propiedades.
-
 * */
 
-//Su función es preparar un entorno de pruebas enfocado en la capa de persistencia con JPA.
+/*
+@DataJpaTest crea un contexto de Spring donde se prepara principalmente los componentes
+relacionados con la persistencia de datos.
+
+Es por esto que se puede utilizar @Autowired para inyectar un UserRepository real sin
+necesidad de @Mock ni @MockitoBean.
+* */
 @DataJpaTest
 //Testcontainers permite utilizar contenedores Docker durante las pruebas automatizadas.
 @Testcontainers
