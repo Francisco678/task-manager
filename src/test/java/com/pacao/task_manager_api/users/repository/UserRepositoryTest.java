@@ -156,17 +156,14 @@ public class UserRepositoryTest {
                 .email("paco@gmail.com")
                 .build();
 
-        repository.saveAndFlush(user);
+        UserEntity userSaved=repository.saveAndFlush(user);
 
         //ACT
-        Optional<UserEntity> foundUser = repository.findById(1);
+        Optional<UserEntity> foundUser = repository.findById(userSaved.getId());
 
         //ASSERT
         assertEquals(false,foundUser.isEmpty());
-
-        assertEquals(1,foundUser.get().getId());
         assertEquals("Paco",foundUser.get().getNombre());
-
 
     }
 

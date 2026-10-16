@@ -135,6 +135,54 @@
 					</execution>
 				</executions>
 			</plugin>
+
+
+			<!--
+				<executions>: Permite configurar cuándo y cómo Maven debe ejecutar determinadas
+				tareas de un plugin.
+
+				<execution>: representa una configuración de ejecución específica.
+
+				<goals>:agrupa las tareas que queremos ejecutar
+
+				prepare-agent: prepara el agente de JaCoCo para que, cuando se ejecuten tus pruebas con
+				JUnit, pueda registrar qué partes del código Java se ejecutaron. Esto permitirá recopilar
+				información de cobertura cuando ejecutes las pruebas de UserService, UserController, etc.
+
+				<id>report</id>: Es un identificador a esa configuración de ejecución. Sirve para
+				distinguirla de otras ejecuciones
+
+
+				<phase>verify</phase>:
+
+
+			!-->
+
+
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.14</version>
+
+				<executions>
+
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+
+					<execution>
+						<id>report</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
